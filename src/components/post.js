@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const BlogPosts = {
   "first-blog-post": {
@@ -14,9 +14,11 @@ const BlogPosts = {
 
 const Post = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const post = BlogPosts[slug];
   if (!post) {
-    return <span>The blog post you've requested doesn't exist.</span>;
+    return navigate("/posts");
+    //return <span>The blog post you've requested doesn't exist.</span>;
   }
 
   const { title, description } = post;
@@ -24,6 +26,20 @@ const Post = () => {
     <div style={{ padding: 20 }}>
       <h3>{title}</h3>
       <p>{description}</p>
+      <button
+        onClick={() => {
+          navigate("/posts");
+        }}
+      >
+        Back
+      </button>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Home
+      </button>
     </div>
   );
 };
